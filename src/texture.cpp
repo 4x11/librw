@@ -383,11 +383,21 @@ Texture::streamRead(Stream *stream)
 		RWERROR((ERR_CHUNK, "STRING"));
 		return nil;
 	}
+	if (length > 32) {
+			RWERROR((ERR_GENERAL, "texture length too long"));
+			if (length > sizeof(name) / sizeof(decltype(name[0])))
+					return nil;
+	}
 	stream->read8(name, length);
 
 	if(!findChunk(stream, ID_STRING, &length, nil)){
 		RWERROR((ERR_CHUNK, "STRING"));
 		return nil;
+	}
+	if (length > 32) {
+			RWERROR((ERR_GENERAL, "texture length too long"));
+			if (length > sizeof(name) / sizeof(decltype(name[0])))
+					return nil;
 	}
 	stream->read8(mask, length);
 
