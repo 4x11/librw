@@ -70,6 +70,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	static int resizing = 0;
 	static int buttons = 0;
 	POINTS p;
+	float delta;
 
 	MouseState ms;
 	switch(msg){
@@ -117,6 +118,12 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		ms.posx = p.x;
 		ms.posy = p.y;
 		EventHandler(MOUSEMOVE, &ms);
+		break;
+
+	case WM_MOUSEWHEEL:
+	case WM_MOUSEHWHEEL:
+		delta = (float)GET_WHEEL_DELTA_WPARAM(wParam) / (float)WHEEL_DELTA;
+		EventHandler(msg == WM_MOUSEWHEEL ? MOUSEWHEEL : MOUSEHWHEEL, &delta);
 		break;
 
 	case WM_LBUTTONDOWN:

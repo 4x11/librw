@@ -229,6 +229,12 @@ ImGuiEventHandler(sk::Event e, void *param)
 		io.MousePos.x = ms->posx;
 		io.MousePos.y = ms->posy;
 		return EVENTPROCESSED;
+	case MOUSEWHEEL:
+		io.MouseWheel += *(float*)param;
+		return EVENTPROCESSED;
+	case MOUSEHWHEEL:
+		io.MouseWheelH += *(float*)param;
+		return EVENTPROCESSED;
 	case MOUSEBTN:
 		ms = (MouseState*)param;
 		io.MouseDown[0] = !!(ms->buttons & 1);
