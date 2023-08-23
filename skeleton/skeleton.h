@@ -82,9 +82,12 @@ enum Event
 struct Globals
 {
 	const char *windowtitle;
-	int32 width;
-	int32 height;
-	bool32 quit;
+	rw::int32 width;
+	rw::int32 height;
+	rw::bool32 quit;
+	rw::bool32 minimized;
+	rw::bool32 fpslimit;
+	rw::float32 maxfps;
 };
 extern Globals globals;
 
@@ -104,13 +107,13 @@ extern Args args;
 
 bool InitRW(void);
 void TerminateRW(void);
-Camera *CameraCreate(int32 width, int32 height, bool32 z);
+rw::Camera *CameraCreate(rw::int32 width, rw::int32 height, rw::bool32 z);
 void CameraDestroy(rw::Camera *cam);
-void CameraSize(Camera *cam, Rect *r, float viewWindow = 0.0f, float aspectRatio = 0.0f);
-void CameraMove(Camera *cam, V3d *delta);
-void CameraPan(Camera *cam, V3d *pos, float angle);
-void CameraTilt(Camera *cam, V3d *pos, float angle);
-void CameraRotate(Camera *cam, V3d *pos, float angle);
+void CameraSize(rw::Camera *cam, rw::Rect *r, float viewWindow = 0.0f, float aspectRatio = 0.0f);
+void CameraMove(rw::Camera *cam, rw::V3d *delta);
+void CameraPan(rw::Camera *cam, rw::V3d *pos, float angle);
+void CameraTilt(rw::Camera *cam, rw::V3d *pos, float angle);
+void CameraRotate(rw::Camera *cam, rw::V3d *pos, float angle);
 void SetMousePosition(int x, int y);
 EventStatus EventHandler(Event e, void *param);
 

@@ -257,9 +257,18 @@ WinMain(HINSTANCE instance, HINSTANCE,
 	args.argv = __argv;
 #endif
 
+	sk::globals.windowtitle = "";
+	sk::globals.width = 1280;
+	sk::globals.height = 800;
+	sk::globals.quit = false;
+	sk::globals.fpslimit = false;
+	sk::globals.maxfps = 60.0f;
+
 	if(EventHandler(INITIALIZE, nil) == EVENTERROR)
 		return 0;
 
+	sk::globals.minimized = false;
+	
 	HWND win = MakeWindow(instance,
 		sk::globals.width, sk::globals.height,
 		sk::globals.windowtitle);
@@ -280,9 +289,10 @@ WinMain(HINSTANCE instance, HINSTANCE,
 		QueryPerformanceCounter((LARGE_INTEGER *)&ticks);
 		float timeDelta = (float)(ticks - lastTicks)/ticksPerSecond;
 
-		EventHandler(IDLE, &timeDelta);
-
-		lastTicks = ticks;
+		if (!globals.fpslimit || (1.0f / globals.maxfps) < timeDelta) {
+			EventHandler(IDLE, &timeDelta);
+			lastTicks = ticks;
+		}
 	}
 
 	EventHandler(RWTERMINATE, nil);
