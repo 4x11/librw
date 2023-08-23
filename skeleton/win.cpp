@@ -127,18 +127,24 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_LBUTTONDOWN:
-		buttons |= 1; goto mbtn;
+		buttons |= 1; goto mbtn_dwn;
 	case WM_LBUTTONUP:
-		buttons &= ~1; goto mbtn;
+		buttons &= ~1; goto mbtn_up;
 	case WM_MBUTTONDOWN:
-		buttons |= 2; goto mbtn;
+		buttons |= 2; goto mbtn_dwn;
 	case WM_MBUTTONUP:
-		buttons &= ~2; goto mbtn;
+		buttons &= ~2; goto mbtn_up;
 	case WM_RBUTTONDOWN:
-		buttons |= 4; goto mbtn;
+		buttons |= 4; goto mbtn_dwn;
 	case WM_RBUTTONUP:
-		buttons &= ~4;
-	mbtn:
+		buttons &= ~4; goto mbtn_up;
+	mbtn_dwn:
+		SetCapture(hwnd);
+		goto mbtn_ev;
+	mbtn_up:
+		if (!buttons) ReleaseCapture();
+		goto mbtn_ev;
+	mbtn_ev:
 		ms.buttons = buttons;
 		EventHandler(MOUSEBTN, &ms);
 		break;
