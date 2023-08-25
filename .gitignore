@@ -2,6 +2,7 @@
 /build
 /obj
 /lib
+/out
 /output
 /.vs
 librw.vcxproj.user
