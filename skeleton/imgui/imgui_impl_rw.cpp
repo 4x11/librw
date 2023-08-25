@@ -64,12 +64,14 @@ ImGui_ImplRW_RenderDrawLists(ImDrawData* draw_data)
 	int addrV = rw::GetRenderState(rw::TEXTUREADDRESSV);
 	int filter = rw::GetRenderState(rw::TEXTUREFILTER);
 	int cullmode = rw::GetRenderState(rw::CULLMODE);
+	int fillmode = rw::GetRenderState(rw::FILLMODE);
 
 	rw::SetRenderState(rw::VERTEXALPHA, 1);
 	rw::SetRenderState(rw::SRCBLEND, rw::BLENDSRCALPHA);
 	rw::SetRenderState(rw::DESTBLEND, rw::BLENDINVSRCALPHA);
 	rw::SetRenderState(rw::ZTESTENABLE, 0);
 	rw::SetRenderState(rw::CULLMODE, rw::CULLNONE);
+	rw::SetRenderState(rw::FILLMODE, rw::FILLSOLID);
 
 	int vtx_offset = 0;
 	for(int n = 0; n < draw_data->CmdListsCount; n++){
@@ -106,6 +108,7 @@ ImGui_ImplRW_RenderDrawLists(ImDrawData* draw_data)
 	rw::SetRenderState(rw::TEXTUREADDRESSV, addrV);
 	rw::SetRenderState(rw::TEXTUREFILTER, filter);
 	rw::SetRenderState(rw::CULLMODE, cullmode);
+	rw::SetRenderState(rw::FILLMODE, fillmode);
 }
 
 bool
