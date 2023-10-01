@@ -5,6 +5,7 @@ endif()
 
 if(LIBRW_EXAMPLES)
     if(TARGET librw::skeleton)
+        add_subdirectory(raster)
         add_subdirectory(imguitest)
         add_subdirectory(playground)
         add_subdirectory(lights)
