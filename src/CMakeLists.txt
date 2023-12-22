@@ -116,7 +116,8 @@ target_compile_definitions(librw
 #        PRIVATE
 #            m
 #    )
-endif()
+#endif()
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     target_compile_options(librw
         PRIVATE
